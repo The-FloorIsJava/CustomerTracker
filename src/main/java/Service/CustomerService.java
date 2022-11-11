@@ -16,6 +16,10 @@ public class CustomerService {
         Customer newCustomer = new Customer(name, balance);
         customerList.add(newCustomer);
     }
+//    overloaded method (method with the same name but different parameters)
+    public void addCustomer(Customer customer){
+        customerList.add(customer);
+    }
 
     public Customer getCustomer(String name){
         for(int i = 0; i < customerList.size(); i++){

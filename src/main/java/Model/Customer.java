@@ -10,6 +10,9 @@ public class Customer {
         this.name = name;
         this.cash = cash;
     }
+    public Customer(){
+
+    }
 
     @Override
     public String toString() {
