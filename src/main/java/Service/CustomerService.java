@@ -1,5 +1,6 @@
 package Service;
 
+import Model.CartItem;
 import Model.Customer;
 
 import java.util.ArrayList;
@@ -7,9 +8,12 @@ import java.util.List;
 
 public class CustomerService {
     List<Customer> customerList;
+    List<CartItem> orderList;
+    int serialId = 1;
 
     public CustomerService(){
         customerList = new ArrayList<>();
+        orderList = new ArrayList<>();
     }
 
     public void addCustomer(String name, double balance){
@@ -43,4 +47,12 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return customerList;
     }
+
+    public CartItem makeOrder(CartItem cartItem) {
+        cartItem.setCartItemId(serialId);
+        orderList.add(cartItem);
+        serialId++;
+        return cartItem;
+    }
+
 }

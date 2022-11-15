@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.CartItem;
 import Model.Customer;
 import Service.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,8 +15,8 @@ public class CustomerController {
     public CustomerController(){
         customerService = new CustomerService();
     }
-    public void startAPI(){
-        Javalin app = Javalin.create().start(8080);
+    public void customerEndpoint(Javalin app){
+
         /*
         app.[http verb]([url endpoint after localhost:8080], this::[handler method]);
 
@@ -35,6 +36,7 @@ public class CustomerController {
         app.post("customer",this::postCustomerHandler);
         app.get("customer", this::getAllCustomersHandler);
         app.get("customer/{name}",this::getSpecificCustomerHandler);
+        app.post("customer/order", this::postOrderHandler);
     }
 
     /**
@@ -69,6 +71,19 @@ public class CustomerController {
         Customer customer = mapper.readValue(context.body(), Customer.class);
         customerService.addCustomer(customer);
         context.json(customer);
+    }
+
+    /**
+     * receives a JSON representation of a CartItem for a users order though the body of a HTTP request.
+     * That representation should be converted into the Java object and saved into the orderList inside the CustomerService
+     * @param context
+     * @throws JsonProcessingException
+     */
+    private void postOrderHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        CartItem cartItem = mapper.readValue(context.body(), CartItem.class);
+        CartItem orderedItem = customerService.makeOrder(cartItem);
+        context.json(orderedItem);
     }
 
     public void helloHandler(Context ctx){
