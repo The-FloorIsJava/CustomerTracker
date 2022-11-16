@@ -1,15 +1,12 @@
-package Controller;
+package com.revature.CustomerTracker.Controller;
 
-import Model.Customer;
-import Model.MenuItem;
-import Service.CustomerService;
-import Service.MenuItemService;
+import com.revature.CustomerTracker.Model.MenuItem;
+import com.revature.CustomerTracker.Service.MenuItemService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-import java.awt.*;
 import java.util.List;
 
 public class MenuItemController {

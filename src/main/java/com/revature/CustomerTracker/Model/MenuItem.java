@@ -1,4 +1,4 @@
-package Model;
+package com.revature.CustomerTracker.Model;
 
 import java.util.Objects;
 

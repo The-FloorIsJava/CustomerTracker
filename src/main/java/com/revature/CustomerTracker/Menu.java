@@ -1,5 +1,7 @@
-import Model.Customer;
-import Service.CustomerService;
+package com.revature.CustomerTracker;
+
+import com.revature.CustomerTracker.Model.Customer;
+import com.revature.CustomerTracker.Service.CustomerService;
 
 import java.util.List;
 import java.util.Scanner;

@@ -1,5 +1,7 @@
-import Controller.CustomerController;
-import Controller.MenuItemController;
+package com.revature.CustomerTracker;
+
+import com.revature.CustomerTracker.Controller.CustomerController;
+import com.revature.CustomerTracker.Controller.MenuItemController;
 import io.javalin.Javalin;
 
 public class Application {

@@ -1,8 +1,8 @@
-package Controller;
+package com.revature.CustomerTracker.Controller;
 
-import Model.CartItem;
-import Model.Customer;
-import Service.CustomerService;
+import com.revature.CustomerTracker.Model.CartItem;
+import com.revature.CustomerTracker.Model.Customer;
+import com.revature.CustomerTracker.Service.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;

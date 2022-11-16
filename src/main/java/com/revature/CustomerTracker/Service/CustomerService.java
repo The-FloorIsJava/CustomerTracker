@@ -1,7 +1,7 @@
-package Service;
+package com.revature.CustomerTracker.Service;
 
-import Model.CartItem;
-import Model.Customer;
+import com.revature.CustomerTracker.Model.CartItem;
+import com.revature.CustomerTracker.Model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;

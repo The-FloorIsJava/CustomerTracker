@@ -1,9 +1,9 @@
-package Model;
+package com.revature.CustomerTracker.Model;
 
 import java.util.Objects;
 
 /**
- * a model class that represents Model.Customer.
+ * a model class that represents com.revature.CustomerTracker.Model.Customer.
  */
 public class Customer {
     private int customerId;
