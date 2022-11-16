@@ -53,6 +53,11 @@ public class ConnectionFactory {
         return connectionFactory;
     }
 
+    /**
+     * This method returns a connection for any class that requests it. Will be used purely inside the test suite
+     * and our DAO layer.
+     * @return utilizes the DriverManager to get a connection to our database from postgresql
+     */
     public Connection getConnection(){
         try {
             return DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"), properties.getProperty("password"));
