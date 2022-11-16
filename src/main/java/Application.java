@@ -7,10 +7,9 @@ public class Application {
 
         Javalin app = Javalin.create().start(8080);
 
-        CustomerController customerController = new CustomerController();
-        customerController.customerEndpoint(app);
-
+        new CustomerController(app).customerEndpoint();
         MenuItemController menuItemController = new MenuItemController();
+
         menuItemController.menuItemEndpoint(app);
     }
 }

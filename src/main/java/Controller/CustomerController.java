@@ -12,10 +12,12 @@ import java.util.List;
 
 public class CustomerController {
     CustomerService customerService;
-    public CustomerController(){
+    Javalin app;
+    public CustomerController(Javalin app){
         customerService = new CustomerService();
+        this.app = app;
     }
-    public void customerEndpoint(Javalin app){
+    public void customerEndpoint(){
 
         /*
         app.[http verb]([url endpoint after localhost:8080], this::[handler method]);
