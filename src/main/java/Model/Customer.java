@@ -1,40 +1,84 @@
 package Model;
 
+import java.util.Objects;
+
 /**
  * a model class that represents Model.Customer.
  */
 public class Customer {
-    public String name;
-    public double cash;
-    public Customer(String name, double cash){
-        this.name = name;
-        this.cash = cash;
-    }
-    public Customer(){
+    private int customerId;
+    private String customerName;
+    private double balance;
+    private String password;
 
+    public Customer() {
+    }
+
+    public Customer(String customerName, double balance, String password) {
+        this.customerName = customerName;
+        this.balance = balance;
+        this.password = password;
+    }
+
+    public Customer(int customerId, String customerName, double balance, String password) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.balance = balance;
+        this.password = password;
+    }
+
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Model.Customer{" +
-                "name='" + name + '\'' +
-                ", cash=" + cash +
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", customerName='" + customerName + '\'' +
+                ", balance=" + balance +
                 '}';
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return customerId == customer.customerId && Double.compare(customer.balance, balance) == 0 && Objects.equals(customerName, customer.customerName) && Objects.equals(password, customer.password);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getCash() {
-        return cash;
-    }
-
-    public void setCash(double cash) {
-        this.cash = cash;
+    @Override
+    public int hashCode() {
+        return Objects.hash(customerId, customerName, balance, password);
     }
 }

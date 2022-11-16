@@ -16,8 +16,8 @@ public class CustomerService {
         orderList = new ArrayList<>();
     }
 
-    public void addCustomer(String name, double balance){
-        Customer newCustomer = new Customer(name, balance);
+    public void addCustomer(String name, double balance, String password){
+        Customer newCustomer = new Customer(name, balance, password);
         customerList.add(newCustomer);
     }
 //    overloaded method (method with the same name but different parameters)
@@ -28,7 +28,7 @@ public class CustomerService {
     public Customer getCustomer(String name){
         for(int i = 0; i < customerList.size(); i++){
             Customer c = customerList.get(i);
-            if(c.name.equals(name)){
+            if(c.getCustomerName().equals(name)){
                 return customerList.get(i);
             }
         }
@@ -38,7 +38,7 @@ public class CustomerService {
     public void removeCustomer(String name){
         for(int i = 0; i < customerList.size(); i++){
             Customer c = customerList.get(i);
-            if(c.name.equals(name)){
+            if(c.getCustomerName().equals(name)){
                 customerList.remove(i);
             }
         }
