@@ -1,58 +1,52 @@
 package com.revature.CustomerTracker.Service;
 
+import com.revature.CustomerTracker.DAO.CustomerDAO;
 import com.revature.CustomerTracker.Model.CartItem;
 import com.revature.CustomerTracker.Model.Customer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerService {
-    List<Customer> customerList;
-    List<CartItem> orderList;
-    int serialId = 1;
 
-    public CustomerService(){
-        customerList = new ArrayList<>();
-        orderList = new ArrayList<>();
+    private Customer sessionCustomer = null;
+    private final CustomerDAO customerDAO;
+
+    public CustomerService(CustomerDAO customerDAO){
+        this.customerDAO = customerDAO;
     }
 
-    public void addCustomer(String name, double balance, String password){
-        Customer newCustomer = new Customer(name, balance, password);
-        customerList.add(newCustomer);
-    }
 //    overloaded method (method with the same name but different parameters)
-    public void addCustomer(Customer customer){
-        customerList.add(customer);
+    public Customer addCustomer(Customer customer){
+        return customerDAO.create(customer);
     }
 
     public Customer getCustomer(String name){
-        for(int i = 0; i < customerList.size(); i++){
-            Customer c = customerList.get(i);
-            if(c.getCustomerName().equals(name)){
-                return customerList.get(i);
-            }
-        }
-        return null;
+       return null;
     }
 
     public void removeCustomer(String name){
-        for(int i = 0; i < customerList.size(); i++){
-            Customer c = customerList.get(i);
-            if(c.getCustomerName().equals(name)){
-                customerList.remove(i);
-            }
-        }
+
     }
 
     public List<Customer> getAllCustomers() {
-        return customerList;
+        return null;
     }
 
     public CartItem makeOrder(CartItem cartItem) {
-        cartItem.setCartItemId(serialId);
-        orderList.add(cartItem);
-        serialId++;
-        return cartItem;
+        return null;
+    }
+
+    public void login(String customerName, String password){
+        // TODO: IMPLEMENT ME WITH DAO
+        sessionCustomer = customerDAO.loginCheck(customerName, password);
+    }
+
+    public void logout(){
+        sessionCustomer = null;
+    }
+
+    public Customer getSessionCustomer(){
+        return sessionCustomer;
     }
 
 }

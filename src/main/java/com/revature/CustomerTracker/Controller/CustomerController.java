@@ -1,10 +1,12 @@
 package com.revature.CustomerTracker.Controller;
 
+import com.revature.CustomerTracker.DAO.CustomerDAO;
 import com.revature.CustomerTracker.Model.CartItem;
 import com.revature.CustomerTracker.Model.Customer;
 import com.revature.CustomerTracker.Service.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.CustomerTracker.Util.DTO.LoginCreds;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -14,7 +16,7 @@ public class CustomerController {
     CustomerService customerService;
     Javalin app;
     public CustomerController(Javalin app){
-        customerService = new CustomerService();
+        customerService = new CustomerService(new CustomerDAO());
         this.app = app;
     }
     public void customerEndpoint(){
@@ -39,6 +41,8 @@ public class CustomerController {
         app.get("customer", this::getAllCustomersHandler);
         app.get("customer/{name}",this::getSpecificCustomerHandler);
         app.post("customer/order", this::postOrderHandler);
+        app.post("login", this::loginHandler);
+        app.delete("logout", this::logoutHandler);
     }
 
     /**
@@ -90,5 +94,18 @@ public class CustomerController {
 
     public void helloHandler(Context ctx){
         ctx.result("hello world");
+    }
+
+    private void loginHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginCreds loginCreds = mapper.readValue(context.body(), LoginCreds.class);
+        customerService.login(loginCreds.getCustomerName(), loginCreds.getPassword());
+        context.json("Successfully logged in");
+    }
+
+    private void logoutHandler(Context context){
+        String customerName = customerService.getSessionCustomer().getCustomerName();
+        customerService.logout();
+        context.json(customerName + " has logged out");
     }
 }
