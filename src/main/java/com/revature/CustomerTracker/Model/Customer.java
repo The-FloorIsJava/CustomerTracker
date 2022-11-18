@@ -1,6 +1,9 @@
 package com.revature.CustomerTracker.Model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
@@ -12,6 +15,7 @@ public class Customer {
     private String customerName;
     private double balance;
     @JsonAlias(value = {"pass", "PaSsWoRd"})
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public Customer() {
