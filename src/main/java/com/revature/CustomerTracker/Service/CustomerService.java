@@ -29,7 +29,7 @@ public class CustomerService {
     }
 
     public List<Customer> getAllCustomers() {
-        return null;
+        return customerDAO.findAll();
     }
 
     public CartItem makeOrder(CartItem cartItem) {

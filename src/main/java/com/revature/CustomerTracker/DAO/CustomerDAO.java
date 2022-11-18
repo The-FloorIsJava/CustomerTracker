@@ -6,6 +6,7 @@ import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputExceptio
 import com.revature.CustomerTracker.Util.Interface.Crudable;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO implements Crudable<Customer> {
@@ -53,7 +54,26 @@ public class CustomerDAO implements Crudable<Customer> {
 
     @Override
     public List<Customer> findAll() {
-        return null;
+
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            List<Customer> customers = new ArrayList<>();
+
+            String sql = "select * from customer";
+
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while(resultSet.next()){
+                customers.add(convertSqlInfoToCustomer(resultSet));
+            }
+
+            return customers;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
@@ -83,23 +103,29 @@ public class CustomerDAO implements Crudable<Customer> {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            // column headers return in first line - customer_id, customer_name, balance, password
             if(!resultSet.next()){
                 throw new InvalidCustomerInputException("Entered information for " + customerName + "was incorrect. Please try again");
             }
 
-            Customer customer = new Customer();
-
-            customer.setCustomerId(resultSet.getInt("customer_id"));
-            customer.setCustomerName(resultSet.getString("customer_name"));
-            customer.setBalance(resultSet.getDouble("balance"));
-            customer.setPassword(resultSet.getString("password"));
-
-            return customer;
+            return convertSqlInfoToCustomer(resultSet);
 
         } catch (SQLException e){
             e.printStackTrace();
             return null;
         }
 
+    }
+
+    // This is a wonderful example of the DRY principle
+    private Customer convertSqlInfoToCustomer(ResultSet resultSet) throws SQLException {
+        Customer customer = new Customer();
+
+        customer.setCustomerId(resultSet.getInt("customer_id"));
+        customer.setCustomerName(resultSet.getString("customer_name"));
+        customer.setBalance(resultSet.getDouble("balance"));
+        customer.setPassword(resultSet.getString("password"));
+
+        return customer;
     }
 }

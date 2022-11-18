@@ -1,5 +1,7 @@
 package com.revature.CustomerTracker.Model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+
 import java.util.Objects;
 
 /**
@@ -9,6 +11,7 @@ public class Customer {
     private int customerId;
     private String customerName;
     private double balance;
+    @JsonAlias(value = {"pass", "PaSsWoRd"})
     private String password;
 
     public Customer() {
