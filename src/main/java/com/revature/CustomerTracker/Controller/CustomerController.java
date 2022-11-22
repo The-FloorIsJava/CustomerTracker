@@ -9,12 +9,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.CustomerTracker.Util.DTO.LoginCreds;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class CustomerController {
     CustomerService customerService;
     Javalin app;
+
+    private Logger logger = LogManager.getLogger();
     public CustomerController(Javalin app){
         customerService = new CustomerService(new CustomerDAO());
         this.app = app;
@@ -75,6 +79,7 @@ public class CustomerController {
     private void postCustomerHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Customer customer = mapper.readValue(context.body(), Customer.class);
+        logger.info("Jackson converted JSON to Java object with following info {}", customer);
         customerService.addCustomer(customer);
         context.json(customer);
     }

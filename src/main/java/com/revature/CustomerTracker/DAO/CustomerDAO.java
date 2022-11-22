@@ -4,6 +4,8 @@ import com.revature.CustomerTracker.Model.Customer;
 import com.revature.CustomerTracker.Util.ConnectionFactory;
 import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputException;
 import com.revature.CustomerTracker.Util.Interface.Crudable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
 
 public class CustomerDAO implements Crudable<Customer> {
 
-
+    private Logger logger = LogManager.getLogger();
     @Override
     public Customer create(Customer newCustomer) {
 
@@ -41,9 +43,11 @@ public class CustomerDAO implements Crudable<Customer> {
             int checkInsert = preparedStatement.executeUpdate();
 
             if(checkInsert == 0){
+                logger.warn("Information provided was not able to be persisted {}", newCustomer);
                 throw new RuntimeException("Customer was not added to database");
             }
 
+            logger.info("New customer with info {} was persisted to the database", newCustomer);
             return newCustomer;
 
         } catch (SQLException e){

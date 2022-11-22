@@ -1,0 +1,5 @@
+[DEBUG] 2022-11-22 12:00:54.013 [main] CustomerService - Customer{customerId=0, customerName='valid', balance=10.4} the information prior was sent ot the service
+[DEBUG] 2022-11-22 12:01:39.330 [main] CustomerService - Customer{customerId=0, customerName='valid', balance=10.4} the information prior was sent ot the service
+[INFO ] 2022-11-22 12:05:19.081 [JettyServerThreadPool-45] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='AndrewBN', balance=50.45}
+[DEBUG] 2022-11-22 12:05:19.088 [JettyServerThreadPool-45] CustomerService - Customer{customerId=0, customerName='AndrewBN', balance=50.45} the information prior was sent ot the service
+[INFO ] 2022-11-22 12:05:19.260 [JettyServerThreadPool-45] CustomerDAO - New customer with info Customer{customerId=0, customerName='AndrewBN', balance=50.45} was persisted to the database
