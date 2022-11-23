@@ -1,6 +1,7 @@
 package com.revature.CustomerTracker.Controller;
 
 import com.revature.CustomerTracker.Model.MenuItem;
+import com.revature.CustomerTracker.Service.CustomerService;
 import com.revature.CustomerTracker.Service.MenuItemService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +13,9 @@ import java.util.List;
 public class MenuItemController {
 
     MenuItemService menuItemService;
-    public MenuItemController(){
+    CustomerService customerService;
+    public MenuItemController(CustomerService customerService){
+        this.customerService = customerService;
         menuItemService = new MenuItemService();
     }
     public void menuItemEndpoint(Javalin app){

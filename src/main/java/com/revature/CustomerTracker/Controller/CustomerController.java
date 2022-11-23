@@ -19,8 +19,8 @@ public class CustomerController {
     Javalin app;
 
     private Logger logger = LogManager.getLogger();
-    public CustomerController(Javalin app){
-        customerService = new CustomerService(new CustomerDAO());
+    public CustomerController(Javalin app, CustomerService customerService){
+        this.customerService = customerService;
         this.app = app;
     }
     public void customerEndpoint(){
@@ -68,6 +68,7 @@ public class CustomerController {
     private void getAllCustomersHandler(Context context) {
         List<Customer> allCustomers = customerService.getAllCustomers();
 //        similar as context.result, but the content type is json rather than text.
+        context.header("RespMessage", "Successfully called all customers");
         context.json(allCustomers);
     }
 
