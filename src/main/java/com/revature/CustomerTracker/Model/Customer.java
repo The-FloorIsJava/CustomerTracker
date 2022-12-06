@@ -1,8 +1,7 @@
 package com.revature.CustomerTracker.Model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
@@ -17,6 +16,8 @@ public class Customer {
     @JsonAlias(value = {"pass", "PaSsWoRd"})
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    private  Tier tier = Tier.valueOf("BRONZE");
 
     public Customer() {
     }
@@ -34,6 +35,19 @@ public class Customer {
         this.password = password;
     }
 
+    public Customer(int customerId, String customerName, double balance, String password, String tier) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.balance = balance;
+        this.password = password;
+        this.tier = Tier.valueOf(tier.toUpperCase());
+    }
+
+    public Customer(int customerId, String customerName, String tier) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.tier = Tier.valueOf(tier.toUpperCase());
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -67,12 +81,21 @@ public class Customer {
         this.password = password;
     }
 
+    public String getTier() {
+        return tier.toString();
+    }
+
+    public void setTier(String tier) {
+        this.tier = Tier.valueOf(tier.toUpperCase());
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
                 ", balance=" + balance +
+                ", tier=" + tier +
                 '}';
     }
 
@@ -81,11 +104,18 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customerId == customer.customerId && Double.compare(customer.balance, balance) == 0 && Objects.equals(customerName, customer.customerName) && Objects.equals(password, customer.password);
+        return customerId == customer.customerId && Double.compare(customer.balance, balance) == 0 && Objects.equals(customerName, customer.customerName) && Objects.equals(password, customer.password) && tier == customer.tier;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, customerName, balance, password);
+        return Objects.hash(customerId, customerName, balance, password, tier);
+    }
+
+    private enum Tier{
+        BRONZE,
+        SILVER,
+        GOLD,
+        PLATNIUM
     }
 }

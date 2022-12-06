@@ -31,7 +31,7 @@ public class CustomerDAO implements Crudable<Customer> {
 //            statement.executeUpdate(sql);
 
 
-            String sql = "insert into customer (customer_name, balance, password) values (?, ?, ?)";
+            String sql = "insert into customer (customer_name, balance, password) values (?, ?, ?, ?)";
             // PreparedStatements prevent SQL injection
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -39,6 +39,7 @@ public class CustomerDAO implements Crudable<Customer> {
             preparedStatement.setString(1, newCustomer.getCustomerName());
             preparedStatement.setDouble(2, newCustomer.getBalance());
             preparedStatement.setString(3, newCustomer.getPassword());
+            preparedStatement.setString(4, newCustomer.getTier());
 
             int checkInsert = preparedStatement.executeUpdate();
 
@@ -129,6 +130,7 @@ public class CustomerDAO implements Crudable<Customer> {
         customer.setCustomerName(resultSet.getString("customer_name"));
         customer.setBalance(resultSet.getDouble("balance"));
         customer.setPassword(resultSet.getString("password"));
+        customer.setTier(resultSet.getString("tier"));
 
         return customer;
     }

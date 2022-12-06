@@ -1,12 +1,13 @@
 package com.revature.CustomerTracker.Controller;
 
-import com.revature.CustomerTracker.DAO.CustomerDAO;
 import com.revature.CustomerTracker.Model.CartItem;
 import com.revature.CustomerTracker.Model.Customer;
 import com.revature.CustomerTracker.Service.CustomerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.CustomerTracker.Util.DTO.LoginCreds;
+import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputException;
+import com.revature.CustomerTracker.Util.Tokens.JWTUtility;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import org.apache.logging.log4j.LogManager;
@@ -18,10 +19,13 @@ public class CustomerController {
     CustomerService customerService;
     Javalin app;
 
+    JWTUtility jwtUtility;
+
     private Logger logger = LogManager.getLogger();
-    public CustomerController(Javalin app, CustomerService customerService){
+    public CustomerController(Javalin app, CustomerService customerService, JWTUtility jwtUtility){
         this.customerService = customerService;
         this.app = app;
+        this.jwtUtility = jwtUtility;
     }
     public void customerEndpoint(){
 
@@ -46,7 +50,6 @@ public class CustomerController {
         app.get("customer/{name}",this::getSpecificCustomerHandler);
         app.post("customer/order", this::postOrderHandler);
         app.post("login", this::loginHandler);
-        app.delete("logout", this::logoutHandler);
     }
 
     /**
@@ -66,10 +69,18 @@ public class CustomerController {
      * @param context
      */
     private void getAllCustomersHandler(Context context) {
-        List<Customer> allCustomers = customerService.getAllCustomers();
+        String auth = context.header("Authorization");
+        Customer authCustomer = jwtUtility.extractTokenDetails(auth);
+        logger.info("{} attempted to hit the getAllCustomersHandler", authCustomer);
+        if(!String.valueOf(authCustomer.getTier()).equals("PLATNIUM")){
+            context.status(403);
+            context.json("Unauthorized Request - upgrade to platnium tier");
+        } else {
+            List<Customer> allCustomers = customerService.getAllCustomers();
 //        similar as context.result, but the content type is json rather than text.
-        context.header("RespMessage", "Successfully called all customers");
-        context.json(allCustomers);
+            context.header("RespMessage", "Successfully called all customers");
+            context.json(allCustomers);
+        }
     }
 
     /**
@@ -105,13 +116,21 @@ public class CustomerController {
     private void loginHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginCreds loginCreds = mapper.readValue(context.body(), LoginCreds.class);
-        customerService.login(loginCreds.getCustomerName(), loginCreds.getPassword());
-        context.json("Successfully logged in");
+        try {
+            Customer customer = customerService.login(loginCreds.getCustomerName(), loginCreds.getPassword());
+            String token = jwtUtility.createToken(customer);
+            context.header("Authorization", token);
+            context.json("Successfully logged in");
+
+        } catch (InvalidCustomerInputException e){
+            context.status(404);
+            context.json(e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+            context.status(500);
+            context.json("The developers need to fix something, apologies for any inconvience");
+        }
+
     }
 
-    private void logoutHandler(Context context){
-        String customerName = customerService.getSessionCustomer().getCustomerName();
-        customerService.logout();
-        context.json(customerName + " has logged out");
-    }
 }

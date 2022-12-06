@@ -10,7 +10,6 @@ import java.util.List;
 
 public class CustomerService {
 
-    private Customer sessionCustomer = null;
     private final CustomerDAO customerDAO;
     private Logger logger = LogManager.getLogger();
 
@@ -40,17 +39,10 @@ public class CustomerService {
         return null;
     }
 
-    public void login(String customerName, String password){
+    public Customer login(String customerName, String password){
         // TODO: IMPLEMENT ME WITH DAO
-        sessionCustomer = customerDAO.loginCheck(customerName, password);
+        return customerDAO.loginCheck(customerName, password);
     }
 
-    public void logout(){
-        sessionCustomer = null;
-    }
-
-    public Customer getSessionCustomer(){
-        return sessionCustomer;
-    }
 
 }

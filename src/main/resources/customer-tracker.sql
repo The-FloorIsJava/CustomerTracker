@@ -4,9 +4,10 @@
 
 create table customer(
 	customer_id serial primary key,
-	customer_name varchar(255) not null,
+	customer_name varchar(255) not null unique,
 	balance numeric check (balance > 0),
-	password varchar(32) not null
+	password varchar(32) not null,
+	tier varchar(40) not null default 'BRONZE'
 );
 
 create table menu_item(
@@ -23,6 +24,8 @@ create table cart_item(
 	foreign key (owned_by) references customer(customer_id)
 );
 
+-- Run this if you have established information in your customer table inside your DB
+--alter table customer add column tier varchar(40) not null default 'BRONZE';
 
 insert into customer (customer_id, customer_name, balance,password) values (8, 'tim', 4.50, 'superPass');
 insert into customer (customer_name, balance, password) values ('joe', 7.00, 'password');
@@ -43,6 +46,7 @@ select * from menu_item;
 
 select * from customer inner join cart_item on customer.customer_id = cart_item.owned_by;
 
+update customer set tier = 'PLATNIUM' where customer_id = 3;
 
 update menu_item set price = 3.5 where item_name = 'espresso';
 select * from menu_item;
