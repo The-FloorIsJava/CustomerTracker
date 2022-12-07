@@ -8,3 +8,11 @@
 [INFO ] 2022-12-06 01:03:13.826 [JettyServerThreadPool-42] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=BRONZE} attempted to hit the getAllCustomersHandler
 [INFO ] 2022-12-06 01:04:24.168 [JettyServerThreadPool-26] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
 [INFO ] 2022-12-06 03:03:50.279 [JettyServerThreadPool-49] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 15:04:06.597 [JettyServerThreadPool-44] CustomerController - Customer{customerId=6, customerName='AndrewBN', balance=0.0, tier=BRONZE} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 15:04:42.131 [JettyServerThreadPool-44] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 16:43:49.089 [JettyServerThreadPool-48] CustomerController - Customer{customerId=6, customerName='AndrewBN', balance=0.0, tier=BRONZE} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 16:45:19.360 [JettyServerThreadPool-30] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 16:46:47.832 [JettyServerThreadPool-49] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 16:48:48.158 [JettyServerThreadPool-35] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 16:49:00.790 [JettyServerThreadPool-51] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-06 16:49:36.456 [JettyServerThreadPool-50] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
