@@ -33,7 +33,7 @@ public class CustomerDAO implements Crudable<Customer> {
 
             String sql = "insert into customer (customer_name, balance, password, tier) values (?, ?, ?, ?)";
             // PreparedStatements prevent SQL injection
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             // set the information for the ?
             preparedStatement.setString(1, newCustomer.getCustomerName());
@@ -47,6 +47,13 @@ public class CustomerDAO implements Crudable<Customer> {
                 logger.warn("Information provided was not able to be persisted {}", newCustomer);
                 throw new RuntimeException("Customer was not added to database");
             }
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    newCustomer.setCustomerId(generatedKeys.getInt(1));
+                }else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            
 
             logger.info("New customer with info {} was persisted to the database", newCustomer);
             return newCustomer;

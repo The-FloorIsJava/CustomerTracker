@@ -242,3 +242,35 @@
 [INFO ] 2022-12-07 12:32:22.327 [JettyServerThreadPool-41] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
 [INFO ] 2022-12-07 12:34:22.325 [JettyServerThreadPool-40] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
 [INFO ] 2022-12-07 12:36:22.334 [JettyServerThreadPool-61] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:01:06.913 [JettyServerThreadPool-44] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:07:19.437 [JettyServerThreadPool-61] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:07:52.734 [JettyServerThreadPool-47] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:08:36.360 [JettyServerThreadPool-63] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:09:42.519 [JettyServerThreadPool-68] CustomerController - Customer{customerId=6, customerName='AndrewBN', balance=0.0, tier=BRONZE} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:20:43.090 [JettyServerThreadPool-44] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 04:27:20.069 [JettyServerThreadPool-41] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='josh', balance=50.45, tier=BRONZE}
+[DEBUG] 2022-12-15 04:27:20.070 [JettyServerThreadPool-41] CustomerService - Customer{customerId=0, customerName='josh', balance=50.45, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:30:37.797 [JettyServerThreadPool-44] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='josh', balance=50.45, tier=BRONZE}
+[DEBUG] 2022-12-15 04:30:37.805 [JettyServerThreadPool-44] CustomerService - Customer{customerId=0, customerName='josh', balance=50.45, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:30:49.154 [JettyServerThreadPool-26] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='duddeeee', balance=50.45, tier=BRONZE}
+[DEBUG] 2022-12-15 04:30:49.154 [JettyServerThreadPool-26] CustomerService - Customer{customerId=0, customerName='duddeeee', balance=50.45, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:30:49.190 [JettyServerThreadPool-26] CustomerDAO - New customer with info Customer{customerId=25, customerName='duddeeee', balance=50.45, tier=BRONZE} was persisted to the database
+[INFO ] 2022-12-15 04:42:19.502 [JettyServerThreadPool-27] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='gobbblegoook', balance=76.66, tier=PLATNIUM}
+[DEBUG] 2022-12-15 04:42:19.502 [JettyServerThreadPool-27] CustomerService - Customer{customerId=0, customerName='gobbblegoook', balance=76.66, tier=PLATNIUM} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:42:19.534 [JettyServerThreadPool-27] CustomerDAO - New customer with info Customer{customerId=26, customerName='gobbblegoook', balance=76.66, tier=PLATNIUM} was persisted to the database
+[INFO ] 2022-12-15 04:44:30.200 [JettyServerThreadPool-29] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='charlie', balance=123.0, tier=BRONZE}
+[DEBUG] 2022-12-15 04:44:30.200 [JettyServerThreadPool-29] CustomerService - Customer{customerId=0, customerName='charlie', balance=123.0, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:45:03.117 [JettyServerThreadPool-49] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='charlie', balance=123.0, tier=BRONZE}
+[DEBUG] 2022-12-15 04:45:03.118 [JettyServerThreadPool-49] CustomerService - Customer{customerId=0, customerName='charlie', balance=123.0, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:48:46.813 [JettyServerThreadPool-43] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='charlie', balance=123.0, tier=BRONZE}
+[DEBUG] 2022-12-15 04:48:46.820 [JettyServerThreadPool-43] CustomerService - Customer{customerId=0, customerName='charlie', balance=123.0, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:50:48.916 [JettyServerThreadPool-28] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='duddeeee', balance=50.45, tier=BRONZE}
+[DEBUG] 2022-12-15 04:50:48.916 [JettyServerThreadPool-28] CustomerService - Customer{customerId=0, customerName='duddeeee', balance=50.45, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:51:18.616 [JettyServerThreadPool-45] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='charlie', balance=0.0, tier=BRONZE}
+[DEBUG] 2022-12-15 04:51:18.616 [JettyServerThreadPool-45] CustomerService - Customer{customerId=0, customerName='charlie', balance=0.0, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 04:53:26.850 [JettyServerThreadPool-30] CustomerController - Jackson converted JSON to Java object with following info Customer{customerId=0, customerName='', balance=0.0, tier=BRONZE}
+[DEBUG] 2022-12-15 04:53:26.850 [JettyServerThreadPool-30] CustomerService - Customer{customerId=0, customerName='', balance=0.0, tier=BRONZE} the information prior was sent ot the service
+[INFO ] 2022-12-15 05:05:04.356 [JettyServerThreadPool-31] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 10:16:55.623 [JettyServerThreadPool-35] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 12:52:19.387 [JettyServerThreadPool-60] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler
+[INFO ] 2022-12-15 12:53:55.579 [JettyServerThreadPool-45] CustomerController - Customer{customerId=3, customerName='charlie', balance=0.0, tier=PLATNIUM} attempted to hit the getAllCustomersHandler

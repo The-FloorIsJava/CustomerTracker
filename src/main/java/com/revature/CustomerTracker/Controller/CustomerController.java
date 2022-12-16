@@ -93,7 +93,12 @@ public class CustomerController {
         Customer customer = mapper.readValue(context.body(), Customer.class);
         logger.info("Jackson converted JSON to Java object with following info {}", customer);
         customerService.addCustomer(customer);
-        context.json(customer);
+
+        if(customer.getCustomerId() == 0){
+            context.status(404);
+        } else {
+            context.json(customer);
+        }
     }
 
     /**
