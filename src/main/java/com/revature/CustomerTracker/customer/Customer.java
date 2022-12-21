@@ -1,13 +1,12 @@
-package com.revature.CustomerTracker.Model;
+package com.revature.CustomerTracker.customer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
 /**
- * a model class that represents com.revature.CustomerTracker.Model.Customer.
+ * a model class that represents com.revature.CustomerTracker.customer.Customer.
  */
 public class Customer {
     private int customerId;

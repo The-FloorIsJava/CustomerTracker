@@ -1,4 +1,4 @@
-package com.revature.CustomerTracker.Model;
+package com.revature.CustomerTracker.cartitem;
 
 public class CartItem {
     private int cartItemId;

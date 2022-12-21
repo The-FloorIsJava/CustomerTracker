@@ -1,7 +1,8 @@
 package com.revature.CustomerTracker.Service;
 
-import com.revature.CustomerTracker.DAO.CustomerDAO;
-import com.revature.CustomerTracker.Model.Customer;
+import com.revature.CustomerTracker.customer.CustomerDAO;
+import com.revature.CustomerTracker.customer.Customer;
+import com.revature.CustomerTracker.customer.CustomerService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

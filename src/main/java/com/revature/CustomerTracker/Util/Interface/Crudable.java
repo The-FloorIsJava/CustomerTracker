@@ -1,7 +1,5 @@
 package com.revature.CustomerTracker.Util.Interface;
 
-import com.revature.CustomerTracker.Model.Customer;
-
 import java.util.List;
 
 public interface Crudable<T> {

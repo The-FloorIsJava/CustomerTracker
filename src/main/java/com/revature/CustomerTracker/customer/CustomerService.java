@@ -1,18 +1,21 @@
-package com.revature.CustomerTracker.Service;
+package com.revature.CustomerTracker.customer;
 
-import com.revature.CustomerTracker.DAO.CustomerDAO;
-import com.revature.CustomerTracker.Model.CartItem;
-import com.revature.CustomerTracker.Model.Customer;
+import com.revature.CustomerTracker.cartitem.CartItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CustomerService {
 
     private final CustomerDAO customerDAO;
     private Logger logger = LogManager.getLogger();
 
+    @Autowired
     public CustomerService(CustomerDAO customerDAO){
         this.customerDAO = customerDAO;
     }

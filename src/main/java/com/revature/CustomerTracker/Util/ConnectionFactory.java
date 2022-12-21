@@ -1,5 +1,9 @@
 package com.revature.CustomerTracker.Util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,10 +22,13 @@ import java.util.Properties;
  *      - used to abstract way the creation and instantiation of the class
  *      - churns out instances of Connections anywhere in the project
  */
+@Component
 public class ConnectionFactory {
     private static final ConnectionFactory connectionFactory = new ConnectionFactory(); // eager instantiated single
     private Properties properties = new Properties();
-
+    private static String url;
+    private static String password;
+    private static String username;
 
     private ConnectionFactory(){
         /* If you want to lazily instantiate a singleton
@@ -29,12 +36,22 @@ public class ConnectionFactory {
             connectionFactory = new ConnectionFactory();
         }
         */
-        try {
-            properties.load(new FileReader("src/main/resources/db.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
+    }
+
+    @Value("${spring.datasource.url}")
+    public void setUrl(String dbUrl){
+        url = dbUrl;
+    }
+
+    @Value("${spring.datasource.password}")
+    public void setPassword(String dbPassword){
+        password = dbPassword;
+    }
+
+    @Value("${spring.datasource.username}")
+    public void setUsername(String dbUsername){
+        username = dbUsername;
     }
 
     static {
@@ -60,7 +77,7 @@ public class ConnectionFactory {
      */
     public Connection getConnection(){
         try {
-            return DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"), properties.getProperty("password"));
+            return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /ctrack
+spring:
+  application:
+    name: Customer Tracker
+    mail:
+      host: smtp.gmail.com
+      port: 600
+      username: asdfad
+      password: asdfasdf
+
+# example of what it would look like with properties
+    # spring.application.mail.host:
+    # spring.application.mail.port:
+    # spring.application.mail.username:
+    # spring.application.mail.password:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
+
+jwt:
+  secret: lookAtMeMrMeeseeks

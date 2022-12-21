@@ -1,14 +1,16 @@
 package com.revature.CustomerTracker.Util.Tokens;
 
-import com.revature.CustomerTracker.Model.Customer;
+import com.revature.CustomerTracker.customer.Customer;
 import com.revature.CustomerTracker.Util.Exceptions.InvalidTokenException;
 import com.revature.CustomerTracker.Util.Exceptions.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Base64;
@@ -16,19 +18,17 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Properties;
 
+@Component
 public class JWTUtility {
 
-    private static Properties properties = new Properties();
-    private static byte[] lazySaltyBytes;
+    @Value("${jwt.secret}")
+    private String secret;
+    private byte[] lazySaltyBytes;
 
-    static {
-        try {
-            properties.load(new FileReader("src/main/resources/db.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    @PostConstruct
+    public void createLazySaltyBytes(){
         lazySaltyBytes = Base64.getEncoder().encode(
-                Base64.getEncoder().encode(properties.getProperty("jwt-secret").getBytes())
+                Base64.getEncoder().encode(secret.getBytes())
         );
     }
     public String createToken(Customer customer) throws IOException {

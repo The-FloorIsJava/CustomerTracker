@@ -1,6 +1,6 @@
-package com.revature.CustomerTracker.Service;
+package com.revature.CustomerTracker.menuitem;
 
-import com.revature.CustomerTracker.Model.MenuItem;
+import com.revature.CustomerTracker.menuitem.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;

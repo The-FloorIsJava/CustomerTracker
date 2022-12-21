@@ -1,16 +1,18 @@
-package com.revature.CustomerTracker.DAO;
+package com.revature.CustomerTracker.customer;
 
-import com.revature.CustomerTracker.Model.Customer;
 import com.revature.CustomerTracker.Util.ConnectionFactory;
 import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputException;
 import com.revature.CustomerTracker.Util.Interface.Crudable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CustomerDAO implements Crudable<Customer> {
 
     private Logger logger = LogManager.getLogger();
