@@ -2,24 +2,38 @@ package com.revature.CustomerTracker.customer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 /**
  * a model class that represents com.revature.CustomerTracker.customer.Customer.
  */
+
+@Data // this handles is the toString, hashcode, equals and getters and setters
+@NoArgsConstructor
+//@AllArgsConstructor because we have the Tier Enum that requires a specific action for the Tier enter, we can ignore this annotation
+
+@Entity
+@Table(name="customer")
 public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="customer_id")
     private int customerId;
+
+    @Column(name="customer_name")
     private String customerName;
+
     private double balance;
     @JsonAlias(value = {"pass", "PaSsWoRd"})
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private  Tier tier = Tier.valueOf("BRONZE");
-
-    public Customer() {
-    }
 
     public Customer(String customerName, double balance, String password) {
         this.customerName = customerName;
@@ -46,69 +60,6 @@ public class Customer {
         this.customerId = customerId;
         this.customerName = customerName;
         this.tier = Tier.valueOf(tier.toUpperCase());
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getTier() {
-        return tier.toString();
-    }
-
-    public void setTier(String tier) {
-        this.tier = Tier.valueOf(tier.toUpperCase());
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", balance=" + balance +
-                ", tier=" + tier +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer customer = (Customer) o;
-        return customerId == customer.customerId && Double.compare(customer.balance, balance) == 0 && Objects.equals(customerName, customer.customerName) && Objects.equals(password, customer.password) && tier == customer.tier;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(customerId, customerName, balance, password, tier);
     }
 
     private enum Tier{
