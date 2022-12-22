@@ -1,14 +1,24 @@
 package com.revature.CustomerTracker.customer;
 
+import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputException;
 import com.revature.CustomerTracker.cartitem.CartItem;
+import com.revature.CustomerTracker.customer.dto.requests.NewCustomerRequest;
+import com.revature.CustomerTracker.customer.dto.responses.CustomerResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CustomerService {
 
     private final CustomerDAO customerDAO;
@@ -20,9 +30,10 @@ public class CustomerService {
     }
 
 //    overloaded method (method with the same name but different parameters)
-    public Customer addCustomer(Customer customer){
-        logger.debug("{} the information prior was sent ot the service", customer);
-        return customerDAO.create(customer);
+    public CustomerResponse addCustomer(NewCustomerRequest newCustomerRequest){
+        logger.debug("{} the information prior was sent ot the service", newCustomerRequest);
+        Customer customer = new Customer(newCustomerRequest);
+        return new CustomerResponse(customerDAO.save(customer));
     }
 
     public Customer getCustomer(String name){
@@ -33,17 +44,19 @@ public class CustomerService {
 
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerDAO.findAll();
+    @Transactional(readOnly = true)
+    public List<CustomerResponse> getAllCustomers() {
+        return ((Collection<Customer>)customerDAO.findAll()).stream().map(CustomerResponse::new).collect(Collectors.toList());
     }
 
     public CartItem makeOrder(CartItem cartItem) {
         return null;
     }
 
-    public Customer login(String customerName, String password){
-        // TODO: IMPLEMENT ME WITH DAO
-        return customerDAO.loginCheck(customerName, password);
+    @Transactional
+    public Customer login(String customerName, String password) throws InvalidCustomerInputException{
+
+        return customerDAO.findByCustomerNameAndPassword(customerName, password).orElseThrow(InvalidCustomerInputException::new);
     }
 
 

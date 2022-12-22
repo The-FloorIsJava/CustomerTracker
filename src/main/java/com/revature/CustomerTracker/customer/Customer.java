@@ -2,12 +2,14 @@ package com.revature.CustomerTracker.customer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.revature.CustomerTracker.cartitem.CartItem;
+import com.revature.CustomerTracker.customer.dto.requests.NewCustomerRequest;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * a model class that represents com.revature.CustomerTracker.customer.Customer.
@@ -25,15 +27,19 @@ public class Customer {
     @Column(name="customer_id")
     private int customerId;
 
-    @Column(name="customer_name")
+    @Column(name="customer_name", unique = true)
     private String customerName;
 
     private double balance;
-    @JsonAlias(value = {"pass", "PaSsWoRd"})
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private  Tier tier = Tier.valueOf("BRONZE");
+
+//    @OneToMany(mappedBy = "owned_by", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @Transient
+//    private Set<CartItem> cartItemSet;
 
     public Customer(String customerName, double balance, String password) {
         this.customerName = customerName;
@@ -62,7 +68,14 @@ public class Customer {
         this.tier = Tier.valueOf(tier.toUpperCase());
     }
 
-    private enum Tier{
+    public Customer(NewCustomerRequest newCustomerRequest){
+        this.customerName = newCustomerRequest.getCustomerName();
+        this.balance = newCustomerRequest.getBalance();
+        this.password = newCustomerRequest.getPassword();
+        this.tier = Tier.valueOf(newCustomerRequest.getTier().toUpperCase());
+    }
+
+    public enum Tier{
         BRONZE,
         SILVER,
         GOLD,

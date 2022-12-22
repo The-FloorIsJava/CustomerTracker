@@ -4,6 +4,8 @@ import com.revature.CustomerTracker.cartitem.CartItem;
 import com.revature.CustomerTracker.Util.DTO.LoginCreds;
 import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputException;
 import com.revature.CustomerTracker.Util.Tokens.JWTUtility;
+import com.revature.CustomerTracker.customer.dto.requests.NewCustomerRequest;
+import com.revature.CustomerTracker.customer.dto.responses.CustomerResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+@CrossOrigin(exposedHeaders = "Authorization")
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -32,22 +35,28 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> findAll(){
+    public List<CustomerResponse> findAll(){
         return customerService.getAllCustomers();
     }
 
     @GetMapping("/2")
-    public List<Customer> findAllPart2(){
+    public List<CustomerResponse> findAllPart2(){
         return customerService.getAllCustomers();
     }
 
     @PostMapping("/login")
-    public Customer login(@RequestBody LoginCreds loginCreds, HttpServletResponse resp) throws IOException {
+    public CustomerResponse login(@RequestBody LoginCreds loginCreds, HttpServletResponse resp) throws IOException {
         Customer authCustomer = customerService.login(loginCreds.getCustomerName(), loginCreds.getPassword());
         String token = jwtUtility.createToken(authCustomer);
         resp.setHeader("Authorization", token);
-        return authCustomer;
+        return new CustomerResponse(authCustomer);
     }
+
+    @PostMapping("/register")
+    public CustomerResponse register(@RequestBody NewCustomerRequest newCustomerRequest){
+        return customerService.addCustomer(newCustomerRequest);
+    }
+
 
     @GetMapping("/{id}")
     public String getId(@PathVariable String id){
@@ -62,7 +71,12 @@ public class CustomerController {
     @ExceptionHandler({InvalidCustomerInputException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public @ResponseBody String exceptionInvalidCustomerInput(InvalidCustomerInputException ex){
-        return ex.getMessage();
+        System.out.println("hello");
+        if(ex.getMessage() == null){
+            return "User input incorrect";
+        } else {
+            return ex.getMessage();
+        }
     }
 
 }

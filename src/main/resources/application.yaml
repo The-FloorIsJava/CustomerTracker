@@ -18,7 +18,7 @@ spring:
     # spring.application.mail.password:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=springboot
     username: postgres
     password: password
   jpa:
