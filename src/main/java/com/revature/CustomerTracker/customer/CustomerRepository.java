@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CustomerDAO extends CrudRepository<Customer, Integer> {
+public interface CustomerRepository extends CrudRepository<Customer, Integer> {
     @Query(value = "FROM Customer WHERE customerName = :customerName AND password = :password")
     Optional<Customer> loginCheck(String customerName, String password);
 

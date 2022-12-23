@@ -9,10 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,19 +19,19 @@ import java.util.stream.Collectors;
 @Transactional
 public class CustomerService {
 
-    private final CustomerDAO customerDAO;
+    private final CustomerRepository customerRepository;
     private Logger logger = LogManager.getLogger();
 
     @Autowired
-    public CustomerService(CustomerDAO customerDAO){
-        this.customerDAO = customerDAO;
+    public CustomerService(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
     }
 
 //    overloaded method (method with the same name but different parameters)
     public CustomerResponse addCustomer(NewCustomerRequest newCustomerRequest){
         logger.debug("{} the information prior was sent ot the service", newCustomerRequest);
         Customer customer = new Customer(newCustomerRequest);
-        return new CustomerResponse(customerDAO.save(customer));
+        return new CustomerResponse(customerRepository.save(customer));
     }
 
     public Customer getCustomer(String name){
@@ -46,7 +44,7 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public List<CustomerResponse> getAllCustomers() {
-        return ((Collection<Customer>)customerDAO.findAll()).stream().map(CustomerResponse::new).collect(Collectors.toList());
+        return ((Collection<Customer>) customerRepository.findAll()).stream().map(CustomerResponse::new).collect(Collectors.toList());
     }
 
     public CartItem makeOrder(CartItem cartItem) {
@@ -56,7 +54,7 @@ public class CustomerService {
     @Transactional
     public Customer login(String customerName, String password) throws InvalidCustomerInputException{
 
-        return customerDAO.findByCustomerNameAndPassword(customerName, password).orElseThrow(InvalidCustomerInputException::new);
+        return customerRepository.findByCustomerNameAndPassword(customerName, password).orElseThrow(InvalidCustomerInputException::new);
     }
 
 

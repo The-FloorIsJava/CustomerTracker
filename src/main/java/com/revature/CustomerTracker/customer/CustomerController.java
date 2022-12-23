@@ -1,5 +1,6 @@
 package com.revature.CustomerTracker.customer;
 
+import com.revature.CustomerTracker.Util.Interface.Secured;
 import com.revature.CustomerTracker.cartitem.CartItem;
 import com.revature.CustomerTracker.Util.DTO.LoginCreds;
 import com.revature.CustomerTracker.Util.Exceptions.InvalidCustomerInputException;
@@ -7,6 +8,7 @@ import com.revature.CustomerTracker.Util.Tokens.JWTUtility;
 import com.revature.CustomerTracker.customer.dto.requests.NewCustomerRequest;
 import com.revature.CustomerTracker.customer.dto.responses.CustomerResponse;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ public class CustomerController {
     }
 
     @GetMapping
+    @Secured(isPlatnium = true)
     public List<CustomerResponse> findAll(){
         return customerService.getAllCustomers();
     }
@@ -53,7 +56,7 @@ public class CustomerController {
     }
 
     @PostMapping("/register")
-    public CustomerResponse register(@RequestBody NewCustomerRequest newCustomerRequest){
+    public CustomerResponse register(@RequestBody @Valid NewCustomerRequest newCustomerRequest){
         return customerService.addCustomer(newCustomerRequest);
     }
 
@@ -68,15 +71,5 @@ public class CustomerController {
         return "The id provided through the query was: " + ident;
     }
 
-    @ExceptionHandler({InvalidCustomerInputException.class})
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public @ResponseBody String exceptionInvalidCustomerInput(InvalidCustomerInputException ex){
-        System.out.println("hello");
-        if(ex.getMessage() == null){
-            return "User input incorrect";
-        } else {
-            return ex.getMessage();
-        }
-    }
 
 }
