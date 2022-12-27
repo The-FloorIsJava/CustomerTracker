@@ -18,9 +18,9 @@ spring:
     # spring.application.mail.password:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=springboot
+    url: jdbc:postgresql://cjester-customer-tracker.ciotsjjufktg.us-east-2.rds.amazonaws.com:5432/postgres
     username: postgres
-    password: password
+    password: FloorJava2022!
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
