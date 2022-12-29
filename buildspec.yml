@@ -7,11 +7,11 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mvn test
+      - ./mvnw test
   post_build:
     commands:
       - echo Build ended on `date`
-      - mvn package
+      - ./mvnw package
 artifacts:
   files:
     - target/CustomerTracker-0.0.1-SNAPSHOT.jar
