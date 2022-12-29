@@ -8,7 +8,7 @@ phases:
     commands:
       - echo Build started on `date`
       - mvn package
-  post-build:
+  post_build:
     commands:
       - mv target/CustomerTracker-0.0.1-SNAPSHOT.jar .
 artifacts:
