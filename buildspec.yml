@@ -3,15 +3,15 @@ version: 0.2
 phases:
   install:
     runtime-version:
-      java: openjdk17
+    java: openjdk17
   build:
     commands:
       - echo Build started on `date`
-      - ./mvnw test
+      - mvn test
   post_build:
     commands:
       - echo Build ended on `date`
-      - ./mvnw package
+      - mvn package
 artifacts:
   files:
     - target/CustomerTracker-0.0.1-SNAPSHOT.jar
